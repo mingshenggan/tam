@@ -1,4 +1,3 @@
-
 import Stripe from 'stripe';
 
 // Set your secret key. Remember to switch to your live secret key in production.
@@ -15,5 +14,5 @@ const paymentIntent = await stripe.paymentIntents.create({
   confirm: true,
   off_session: true,
 });
-
-
+console.log('Preauth $100. PI:', paymentIntent.id)
+console.log('Upon execution, user bank statement should show a "Pending" charge of $100')
