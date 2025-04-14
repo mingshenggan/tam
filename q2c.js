@@ -13,3 +13,4 @@ const paymentIntent = await stripe.paymentIntents.capture(
 );
 console.log('Captured $75 out of $100. Updated PI:', paymentIntent.id)
 console.log('Upon execution, user pending transaction should be finalized as $75 and the balance $25 will be released.')
+console.log('From the merchant\'s end, various fees like stripe platform fee or other fees are also settled.')
