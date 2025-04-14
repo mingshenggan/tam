@@ -6,7 +6,7 @@ const stripe = new Stripe('sk_test_51RDgKlPoK1psmfNnLDTqbFDCCTnddqdvQxi8M0rbAeL7
 
 const customer = await stripe.customers.create({
   payment_method: 'pm_card_visa',
-  email: 'mingshengg@outloo,.com',
+  email: 'mingshengg@outlook.com',
   name: 'TAM Candidate Mingsheng',
 });
 console.log('Customer created. Cust ID: ', customer.id)
