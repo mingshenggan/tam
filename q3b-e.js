@@ -11,7 +11,7 @@ const paymentIntent = await stripe.paymentIntents.create(
     payment_method: 'pm_card_visa',
     confirm: true,
     transfer_data: {
-      destination: 'acct_1RDj6ePo9YKx13g9',
+      destination: 'acct_1RE126Q0zzLV3g77',
       amount: 1500,
     },
     automatic_payment_methods: {
