@@ -81,3 +81,26 @@ Examples:
 
  - Crypto exchanges collecting payments for people
  - Consumer chains supporting "top up" services for subsequent usages (i.e. kopitiam card in singapore)
+
+## Q4
+
+Hi [Customer's Name],
+
+That’s fantastic news—congrats on getting the green light for your streaming service! I’m glad you’re considering Stripe for your subscription billing needs. Stripe’s Billing product is well-suited for both flat-rate and usage-based pricing models.
+
+Here are the implementation references for each of your use cases. In the provided links, you will also be able to visual how it works before diving deeper into the implementation details.
+- Plan A: Flat rate of $24.99 per month for unlimited usage of the service
+    - [Demo](https://github.com/stripe-samples/subscription-use-cases/tree/main/fixed-price-subscriptions)
+    - [Python Implementation Reference](https://github.com/stripe-samples/subscription-use-cases/tree/main/fixed-price-subscriptions/server/python)
+- Plan B: Metered Billing ($10.99 base + $1.00 per 10GB)
+    - [Demo](https://github.com/stripe-samples/subscription-use-cases/tree/main/usage-based-subscriptions)
+    - [Python Implementation Reference](https://github.com/stripe-samples/subscription-use-cases/tree/main/usage-based-subscriptions/server/python)
+
+In general, Coupons in Stripe allow you to apply discounts either as a percentage, fixed amount, or for a limited time. [Here's](https://docs.stripe.com/billing/subscriptions/coupons?dashboard-or-api=api&lang=python) the relevant documentation which can help you get up to speed rapidly.
+
+Since the timeline of 1 week before development is short, I'd be happy to speed things up for you. Let me know when's a good time for an initial call.
+
+
+Best regards,
+[Your Name]
+Technical Account Manager, Stripe
