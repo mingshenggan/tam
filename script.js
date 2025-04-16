@@ -131,65 +131,71 @@ const externalAccount = await stripe.accounts.createExternalAccount(
 console.log('External account created:', externalAccount.id)
 console.log('\n\n')
 
-// Q3b
-const destinationCharge = await stripe.paymentIntents.create(
-  {
-    currency: 'usd',
-    amount: 2000,
-    payment_method: 'pm_card_visa',
-    confirm: true,
-    transfer_data: {
-      destination: account.id,
-      amount: 1500,
-    },
-    automatic_payment_methods: {
-      enabled: true,
-      allow_redirects: 'never',
-    },
-  }, {
-    idempotencyKey: 'perform-destination-charge-for-q3b',
-  }
-)
-console.log('Q3b - Created payment intent:', destinationCharge.id)
-console.log('\n\n')
-
-// 3f.
-const product = await stripe.products.create({
-  name: 'neon signboard',
-  default_price_data: {
-    unit_amount: 200,
-    currency: 'usd',
-    recurring: {
-      interval: 'month',
-      interval_count: 1,
-    },
-  },
-  active: true,
-}, {
-  idempotencyKey: 'create-product-for-neon-sign-q3f'
-})
-
-const subscription = await stripe.subscriptions.create({
-  // Assume that the driver is the original customer, thus use its cust ID to avoid recreation
-  customer: customer.id,
-  off_session: true,
-  description: 'rental of neon lyft sign',
-  collection_method: 'charge_automatically',
-  items: [
+// Create only after verification
+console.log('We need to allow time for the connected account to be verified')
+console.log('Please press any key to continue')
+await process.stdin.once('data', async function () {
+  // Q3b
+  const destinationCharge = await stripe.paymentIntents.create(
     {
-      price_data: {
-        product: product.id,
+      currency: 'usd',
+      amount: 2000,
+      payment_method: 'pm_card_visa',
+      confirm: true,
+      transfer_data: {
+        destination: account.id,
+        amount: 1500,
+      },
+      automatic_payment_methods: {
+        enabled: true,
+        allow_redirects: 'never',
+      },
+    }, {
+      idempotencyKey: 'perform-destination-charge-q3b',
+    }
+  )
+  console.log('Q3b - Created payment intent:', destinationCharge.id)
+  console.log('\n\n')
+
+  // 3f.
+    const product = await stripe.products.create({
+      name: 'neon signboard',
+      default_price_data: {
+        unit_amount: 200,
         currency: 'usd',
         recurring: {
-          interval_count: 1,
           interval: 'month',
+          interval_count: 1,
         },
-        unit_amount: 200,
       },
-    },
-  ],
-}, {
-  idempotencyKey: 'create-subscription-for-q3f'
-})
-console.log('Q3f - Created subscription:', subscription.id)
-console.log('\n\n')
+      active: true,
+    }, {
+      idempotencyKey: 'create-product-for-neon-sign-q3f'
+    })
+
+  const subscription = await stripe.subscriptions.create({
+    // Assume that the driver is the original customer, thus use its cust ID to avoid recreation
+    customer: customer.id,
+    off_session: true,
+    description: 'rental of neon lyft sign',
+    collection_method: 'charge_automatically',
+    items: [
+      {
+        price_data: {
+          product: product.id,
+          currency: 'usd',
+          recurring: {
+            interval_count: 1,
+            interval: 'month',
+          },
+          unit_amount: 200,
+        },
+      },
+    ],
+  }, {
+    idempotencyKey: 'create-subscription-for-q3f'
+  })
+  console.log('Q3f - Created subscription:', subscription.id)
+  console.log('\n\n')
+  console.log('You may terminate the script now.')
+});
